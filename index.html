@@ -113,7 +113,7 @@ h2{font-size:16px;margin:0 0 12px}
    (JUNTS, ERC, BILDU, PNV, BNG, CC, AA, UPN, COMP…). Nombres de provincia como en la lista P. */
 const CFG = { FEED_URL: "", REFRESH: 30000, SIMS: 400,
   parse: raw => raw };
-const BLOC = { LEFT:["PSOE","FA","ERC","BILDU","BNG","COMP","AA"], RIGHT:["PP","VOX","CC","UPN"] }; // PNV y JUNTS: sin bloque
+const BLOC = { LEFT:["PSOE","FA","ERC","BILDU","BNG","COMP","AA","PNV","JUNTS"], RIGHT:["PP","VOX","CC","UPN"] }; // PNV y JUNTS: sin bloque
 const MAIN = ["PP","PSOE","VOX","FA"];
 const G = [{id:"PP",n:"PP",c:"#1e7fc4"},{id:"PSOE",n:"PSOE",c:"#d6212a"},{id:"VOX",n:"Vox",c:"#5aa832"},{id:"FA",n:"Frente Amplio",c:"#9b3f93"},{id:"OTR",n:"Otros",c:"#7d8590"}];
 const gid = k => MAIN.includes(k) ? k : "OTR";
