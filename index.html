@@ -130,7 +130,7 @@ table.ptab input[type=number]{width:62px;border:1px solid #cfd5df;border-radius:
       </div>
 
       <div class="sum-line">
-        <span>Escaños introducidos: <b id="sumSeats">0</b> / 350</span>
+        <span>Escaños en pantalla: <b id="sumSeats">0</b> / 350</span>
         <span>Escrutado ponderado: <b id="weightedPct">0,0 %</b></span>
       </div>
 
@@ -161,7 +161,7 @@ table.ptab input[type=number]{width:62px;border:1px solid #cfd5df;border-radius:
 
       <!-- Resultados de probabilidad -->
       <div id="probOut" style="margin-top:12px"></div>
-      <p class="note">Modelo Monte Carlo (1.500 simulaciones por recálculo): proyecta los escaños pendientes de asignar ponderando el peso de cada provincia (Madrid 37, Barcelona 32, Valencia 16…) y la volatilidad restante según su % escrutado. Incluye PNV y Junts en el bloque progresista.</p>
+      <p class="note">Modelo Monte Carlo (1.500 simulaciones por recálculo): trata los escaños visibles como provisionales según el % de voto aún sin contar (no como fijos) y simula tanto los escaños sin provincia asignada como los que aún pueden bailar entre bloques. Incluye PNV y Junts en el bloque progresista.</p>
     </section>
   </div>
 
@@ -248,133 +248,4 @@ document.getElementById("modeProv").onclick = () => {
 const rngGlobal = document.getElementById("rngGlobal");
 const numGlobal = document.getElementById("numGlobal");
 rngGlobal.oninput = () => { numGlobal.value = rngGlobal.value; runCalc(); };
-numGlobal.oninput = () => {
-  let v = Math.max(0, Math.min(100, parseFloat(numGlobal.value) || 0));
-  rngGlobal.value = v;
-  runCalc();
-};
-
-document.getElementById("btnApplyAll").onclick = () => {
-  const val = Math.max(0, Math.min(100, parseFloat(numGlobal.value) || 0));
-  PROVINCIAS.forEach(([name]) => { provPct[name] = val; });
-  provBody.querySelectorAll("input").forEach(inp => inp.value = val);
-  runCalc();
-};
-
-document.getElementById("btnReset").onclick = () => {
-  ["inPP","inPSOE","inVOX","inFA","inIZQ","inDER"].forEach(id => document.getElementById(id).value = 0);
-  rngGlobal.value = 0; numGlobal.value = 0;
-  PROVINCIAS.forEach(([name]) => { provPct[name] = 0; });
-  provBody.querySelectorAll("input").forEach(inp => inp.value = 0);
-  runCalc();
-};
-
-["inPP","inPSOE","inVOX","inFA","inIZQ","inDER"].forEach(id => {
-  document.getElementById(id).addEventListener("input", runCalc);
-});
-
-function randn() {
-  let u = 0;
-  while (!u) u = Math.random();
-  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * Math.random());
-}
-
-function runCalc() {
-  const pp = Math.max(0, parseInt(document.getElementById("inPP").value) || 0);
-  const psoe = Math.max(0, parseInt(document.getElementById("inPSOE").value) || 0);
-  const vox = Math.max(0, parseInt(document.getElementById("inVOX").value) || 0);
-  const fa = Math.max(0, parseInt(document.getElementById("inFA").value) || 0);
-  const izqOtr = Math.max(0, parseInt(document.getElementById("inIZQ").value) || 0);
-  const derOtr = Math.max(0, parseInt(document.getElementById("inDER").value) || 0);
-
-  const curR = pp + vox + derOtr;
-  const curL = psoe + fa + izqOtr;
-  const totAssigned = curR + curL;
-
-  const sumEl = document.getElementById("sumSeats");
-  sumEl.textContent = totAssigned;
-  sumEl.className = totAssigned > 350 ? "sum-warn" : "";
-
-  let weightedE = 0;
-  let remainingVariance = 0;
-  if (!provMode) {
-    weightedE = (Math.max(0, Math.min(100, parseFloat(numGlobal.value) || 0))) / 100;
-    remainingVariance = 1 - weightedE;
-  } else {
-    let acc = 0, varAcc = 0;
-    PROVINCIAS.forEach(([name, seats]) => {
-      const e = (provPct[name] || 0) / 100;
-      acc += e * seats;
-      varAcc += (1 - e) * (seats / 350);
-    });
-    weightedE = acc / 350;
-    remainingVariance = varAcc;
-  }
-
-  document.getElementById("weightedPct").textContent =
-    (weightedE * 100).toLocaleString("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " %";
-
-  const out = document.getElementById("probOut");
-  if (totAssigned > 350) {
-    out.innerHTML = `<p class="sum-warn" style="font-size:13px">Has introducido ${totAssigned} escaños y el Congreso tiene un máximo de 350.</p>`;
-    return;
-  }
-  if (totAssigned === 0 && weightedE === 0) {
-    out.innerHTML = `<p class="note" style="margin:0">Introduce los escaños que vayan saliendo en el hemiciclo y el % escrutado para calcular la proyección en directo.</p>`;
-    return;
-  }
-
-  const SIMS = 1500;
-  let winL = 0, winR = 0, tie = 0;
-  let sumFinalL = 0, sumFinalR = 0;
-
-  const shareR = totAssigned > 0 ? curR / totAssigned : 0.5;
-  const remSeats = Math.max(0, 350 - totAssigned);
-  const sigmaShare = 0.085 * Math.sqrt(Math.max(0.005, remainingVariance));
-
-  for (let i = 0; i < SIMS; i++) {
-    const swing = randn() * sigmaShare;
-    const simShareR = Math.max(0.05, Math.min(0.95, shareR + swing));
-
-    const expectedRemR = remSeats * simShareR;
-    const dhondtNoise = randn() * Math.sqrt(remSeats * simShareR * (1 - simShareR) * 0.65);
-    const addR = Math.max(0, Math.min(remSeats, Math.round(expectedRemR + dhondtNoise)));
-    const addL = remSeats - addR;
-
-    const finalR = curR + addR;
-    const finalL = curL + addL;
-
-    sumFinalR += finalR;
-    sumFinalL += finalL;
-
-    if (finalR >= 176) winR++;
-    else if (finalL >= 176) winL++;
-    else tie++;
-  }
-
-  const pL = (winL / SIMS) * 100;
-  const pR = (winR / SIMS) * 100;
-  const pT = (tie / SIMS) * 100;
-  const projL = Math.round(sumFinalL / SIMS);
-  const projR = 350 - projL;
-
-  const row = (label, pct, color) => `
-    <div class="pr">
-      <div class="row"><span>${label}</span><span>${pct.toFixed(1).replace(".", ",")} %</span></div>
-      <div class="tr"><i style="width:${pct}%;background:${color}"></i></div>
-    </div>`;
-
-  out.innerHTML =
-    row("Mayoría absoluta Izquierda (PSOE + FA + PNV/Junts…)", pL, "#b3262f") +
-    row("Mayoría absoluta Derecha (PP + Vox + CC/UPN)", pR, "#1b6aa5") +
-    (pT > 0.1 ? row("Empate exacto (175 - 175)", pT, "#8a919c") : "") +
-    `<div class="proj-box">
-      <div class="proj-row"><span>Bloque actual en hemiciclo:</span><b>Izq. ${curL} · Der. ${curR}</b></div>
-      <div class="proj-row"><span>Proyección media al 100 %:</span><b>Izq. ${projL} · Der. ${projR}</b></div>
-    </div>`;
-}
-
-runCalc();
-</script>
-</body>
-</html>
+numGlobal.
