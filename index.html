@@ -8,262 +8,373 @@
 :root{--bg:#f3f4f6;--card:#fff;--ink:#14181f;--mut:#5d6573;--line:#dfe3e9;--pp:#1e7fc4;--psoe:#d6212a;--vox:#5aa832;--fa:#9b3f93;--otr:#7d8590}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;font-variant-numeric:tabular-nums}
-main{max-width:1100px;margin:0 auto;padding:20px 16px 48px}
+main{max-width:1160px;margin:0 auto;padding:20px 16px 56px}
+header{margin-bottom:18px}
 h1{font-size:26px;margin:0 0 4px;letter-spacing:-.01em}
 h2{font-size:16px;margin:0 0 12px}
 .sub{color:var(--mut);font-size:14px}
-.demo{display:inline-block;background:#fff3cd;color:#6b4e00;border:1px solid #f0d98a;padding:2px 8px;border-radius:4px;font-size:13px;margin-left:6px}
-.live{display:inline-block;background:#e3f6e8;color:#14612c;border:1px solid #a9dfba;padding:2px 8px;border-radius:4px;font-size:13px;margin-left:6px}
-.parties{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0}
-.p{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--c);border-radius:6px;padding:12px 14px}
-.p b{font-size:14px}
-.p .s{font-size:38px;font-weight:700;line-height:1.1;margin-top:4px}
-.p .v{color:var(--mut);font-size:15px}
-.p .pj{font-size:12px;color:var(--mut)}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px;margin-bottom:14px}
-.tabs{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:12px}
-.tabs button{border:0;background:#fff;padding:7px 14px;font:inherit;cursor:pointer}
-.tabs button[aria-pressed=true]{background:var(--ink);color:#fff}
+.badge{display:inline-block;background:#e3f6e8;color:#14612c;border:1px solid #a9dfba;padding:2px 8px;border-radius:4px;font-size:12.5px;margin-left:8px;vertical-align:middle}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.gridMapCalc{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;margin-bottom:14px;align-items:start}
+.tabs{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:12px;flex-wrap:wrap}
+.tabs button{border:0;background:#fff;padding:7px 13px;font:13.5px inherit;cursor:pointer;border-right:1px solid var(--line)}
+.tabs button:last-child{border-right:0}
+.tabs button[aria-pressed=true]{background:var(--ink);color:#fff;font-weight:600}
 .tabs button:focus-visible{outline:3px solid var(--pp);outline-offset:-3px}
-.bar{position:relative;display:flex;height:34px;background:#e9ecf0;border-radius:4px;overflow:hidden}
-.bar i{display:block;height:100%}
-.mark{position:absolute;top:-6px;bottom:-6px;left:50.29%;border-left:2px dashed var(--ink)}
-.marklbl{font-size:12px;color:var(--mut);text-align:center;margin-top:8px}
-.blocs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
-.blocs div{border-radius:6px;padding:12px 14px;color:#fff}
-.blocs .n{font-size:40px;font-weight:700;line-height:1.1}
-.two{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}
-.map{display:grid;grid-template-columns:repeat(12,1fr);gap:4px}
-.t{aspect-ratio:1;border:3px solid transparent;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;line-height:1.15;cursor:default}
-.t b{font-size:12px}
-.leg{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mut);margin-top:10px;flex-wrap:wrap}
-.leg i{width:120px;height:10px;background:linear-gradient(90deg,#e7ebf0,#1b3a5c);border-radius:2px}
-.pr{margin-bottom:14px}
-.pr .row{display:flex;justify-content:space-between;font-weight:600}
+.attr{font:12px/1.5 system-ui,sans-serif;margin:8px 0 0;color:#6b6b74}
+.attr a{color:#1e7fc4;text-decoration:none}
+.attr a:hover{text-decoration:underline}
+
+/* Calculadora */
+.calc-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.calc-head h2{margin:0}
+.btn-sec{border:1px solid var(--line);background:#f8f9fb;color:var(--ink);border-radius:5px;padding:5px 10px;font:12.5px inherit;cursor:pointer}
+.btn-sec:hover{background:#eceff4}
+.inputs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.field{display:flex;flex-direction:column;background:#f8f9fb;border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+.field label{font-size:11.5px;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.field input{width:100%;border:1px solid #cfd5df;border-radius:4px;padding:5px 7px;font:600 15px inherit;color:var(--ink);background:#fff}
+.field input:focus{outline:2px solid var(--pp);border-color:transparent}
+.sum-line{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mut);padding:6px 2px 10px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.sum-line b{color:var(--ink)}
+.sum-warn{color:#b3262f;font-weight:600}
+
+/* Barras de probabilidad */
+.pr{margin-bottom:12px}
+.pr .row{display:flex;justify-content:space-between;font-size:14px;font-weight:600}
 .pr .tr{height:12px;background:#e9ecf0;border-radius:6px;margin-top:4px;overflow:hidden}
-.pr .tr i{display:block;height:100%}
-.note{font-size:12.5px;color:var(--mut);margin-top:10px}
-@media(max-width:820px){.parties{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.t{font-size:9px}.t b{font-size:10px}}
+.pr .tr i{display:block;height:100%;transition:width .25s ease}
+.proj-box{background:#f8f9fb;border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:13px;margin-top:10px}
+.proj-row{display:flex;justify-content:space-between;margin-bottom:4px}
+.proj-row:last-child{margin-bottom:0}
+
+/* Escrutinio provincial fino */
+.prov-panel{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+.prov-bar{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.prov-bar input[type=range]{flex:1}
+.prov-bar input[type=number]{width:66px;border:1px solid #cfd5df;border-radius:4px;padding:4px 6px;font:600 13.5px inherit}
+.prov-table-wrap{max-height:260px;overflow-y:auto;border:1px solid var(--line);border-radius:6px}
+table.ptab{width:100%;border-collapse:collapse;font-size:12.5px}
+table.ptab th{position:sticky;top:0;background:#f3f4f6;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);font-weight:600;color:var(--mut)}
+table.ptab td{padding:4px 8px;border-bottom:1px solid #eef0f4}
+table.ptab tr:last-child td{border-bottom:0}
+table.ptab input[type=number]{width:62px;border:1px solid #cfd5df;border-radius:4px;padding:3px 5px;font:600 12.5px inherit;text-align:right}
+.pill{display:inline-block;padding:1px 6px;border-radius:10px;font-size:11px;font-weight:600;background:#e9ecf0;color:var(--mut)}
+.note{font-size:12px;color:var(--mut);margin:10px 0 0;line-height:1.45}
+
+@media(max-width:900px){
+  .grid2,.gridMapCalc{grid-template-columns:1fr}
+  .inputs-grid{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
 <main>
-<h1>Escrutinio 29N</h1>
-<div class="sub" id="status">Cargando…</div>
+  <header>
+    <h1>Escrutinio 29N · Elecciones Generales 2026 <span class="badge">Widgets en directo</span></h1>
+    <div class="sub">Seguimiento oficial del Congreso de los Diputados (Ministerio del Interior) y simulador probabilístico por circunscripción.</div>
+  </header>
 
-<!-- WIDGETS OFICIALES GENERALES29N: se cargan desde su servidor y no necesitan API key. -->
-<section class="panel">
-  <h2>Hemiciclo del Congreso · resultados oficiales</h2>
-  <div data-elecciones-widget="hemiciclo" data-theme="auto"></div>
-</section>
-<section class="panel">
-  <h2>Simulación oficial de pactos</h2>
-  <div data-elecciones-widget="simulador" data-theme="auto"></div>
-</section>
-<script async src="https://generales29n.com/embed/v1/loader.js"></script>
+  <!-- BLOQUE 1: HEMICICLO Y RESULTADOS OFICIALES EN DIRECTO -->
+  <div class="grid2">
+    <section class="panel" style="margin-bottom:0">
+      <h2>Hemiciclo del Congreso · Oficial</h2>
+      <div data-elecciones-widget="hemiciclo" data-theme="light"></div>
+    </section>
 
-<section class="panel">
-  <h2>Panel personalizado de Claude · demostración</h2>
-  <p class="note"><strong>Atención:</strong> los datos de las tarjetas, el mapa provincial y las probabilidades de este panel son simulados. No son resultados oficiales ni se actualizan con los widgets de arriba.</p>
-</section>
-<section class="parties" id="parties" aria-label="Resultados simulados por partido"></section>
-
-<section class="panel">
-  <div class="tabs" role="group" aria-label="Vista de escaños">
-    <button id="tP" aria-pressed="true">Por partido</button>
-    <button id="tB" aria-pressed="false">Por bloque</button>
+    <section class="panel" style="margin-bottom:0">
+      <h2>Resultados y votos · España</h2>
+      <iframe src="https://29n.voto/embed/zona?eleccion=2026-29n&camara=congreso&idioma=es" title="Resultados del Congreso · Elecciones 29N" loading="lazy" style="width:100%;max-width:760px;height:180px;border:0;display:block"></iframe>
+      <p class="attr">Fuente: Ministerio del Interior · Gráfico: <a href="https://29n.voto/directo" target="_blank" rel="noopener">Elecciones 29N</a></p>
+    </section>
   </div>
-  <div id="seatView"></div>
-</section>
 
-<div class="two">
+  <!-- BLOQUE 2: MAPA OFICIAL + CALCULADORA FINA DE PROBABILIDAD -->
+  <div class="gridMapCalc">
+    <section class="panel" style="margin-bottom:0">
+      <div class="tabs" role="group" aria-label="Vista del mapa">
+        <button id="mR" aria-pressed="true">Mapa · Resultados</button>
+        <button id="mP" aria-pressed="false">Mapa · Participación</button>
+      </div>
+      <div id="mapResultados">
+        <iframe src="https://29n.voto/embed/mapa?eleccion=2026-29n&camara=congreso&idioma=es" title="Mapa del Congreso · Elecciones 29N" loading="lazy" style="width:100%;max-width:760px;height:180px;border:0;display:block"></iframe>
+        <p class="attr">Fuente: Ministerio del Interior · Gráfico: <a href="https://29n.voto/directo" target="_blank" rel="noopener">Elecciones 29N</a></p>
+      </div>
+      <div id="mapParticipacion" hidden>
+        <iframe src="https://29n.voto/embed/mapa?eleccion=2026-29n&camara=congreso&modo=participacion&idioma=es" title="Mapa del Congreso · Elecciones 29N" loading="lazy" style="width:100%;max-width:760px;height:180px;border:0;display:block"></iframe>
+        <p class="attr">Fuente: Ministerio del Interior · Gráfico: <a href="https://29n.voto/directo" target="_blank" rel="noopener">Elecciones 29N</a></p>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-bottom:0">
+      <div class="calc-head">
+        <h2>Calculadora de mayoría absoluta</h2>
+        <button class="btn-sec" id="btnReset" title="Poner todos los escaños a 0">Reiniciar</button>
+      </div>
+
+      <div class="tabs" role="group" aria-label="Modo de escrutinio">
+        <button id="modeGlobal" aria-pressed="true">Escrutado global</button>
+        <button id="modeProv" aria-pressed="false">Por provincia (52)</button>
+      </div>
+
+      <!-- Escaños actuales vistos en el hemiciclo -->
+      <div class="inputs-grid">
+        <div class="field"><label><i class="dot" style="background:var(--pp)"></i>PP</label><input type="number" id="inPP" min="0" max="350" value="0"></div>
+        <div class="field"><label><i class="dot" style="background:var(--psoe)"></i>PSOE</label><input type="number" id="inPSOE" min="0" max="350" value="0"></div>
+        <div class="field"><label><i class="dot" style="background:var(--vox)"></i>Vox</label><input type="number" id="inVOX" min="0" max="350" value="0"></div>
+        <div class="field"><label><i class="dot" style="background:var(--fa)"></i>Frente Amplio</label><input type="number" id="inFA" min="0" max="350" value="0"></div>
+        <div class="field"><label><i class="dot" style="background:#008142"></i>PNV / Junts / Nac. Izq.</label><input type="number" id="inIZQ" min="0" max="350" value="0"></div>
+        <div class="field"><label><i class="dot" style="background:#7d8590"></i>CC / UPN / Otros</label><input type="number" id="inDER" min="0" max="350" value="0"></div>
+      </div>
+
+      <div class="sum-line">
+        <span>Escaños introducidos: <b id="sumSeats">0</b> / 350</span>
+        <span>Escrutado ponderado: <b id="weightedPct">0,0 %</b></span>
+      </div>
+
+      <!-- Modo 1: Escrutado global -->
+      <div id="boxGlobal" class="prov-panel" style="border-top:0;padding-top:0">
+        <div class="prov-bar">
+          <label for="rngGlobal" style="font-size:13px;font-weight:600;white-space:nowrap">% escrutado:</label>
+          <input type="range" id="rngGlobal" min="0" max="100" step="1" value="0">
+          <input type="number" id="numGlobal" min="0" max="100" step="0.1" value="0"> %
+        </div>
+      </div>
+
+      <!-- Modo 2: Escrutado fino por provincia -->
+      <div id="boxProv" class="prov-panel" hidden>
+        <div class="prov-bar" style="justify-content:space-between">
+          <span style="font-size:12.5px;color:var(--mut)">Ajusta el % escrutado de cada provincia (ordenadas por escaños):</span>
+          <button class="btn-sec" id="btnApplyAll">Igualar todas</button>
+        </div>
+        <div class="prov-table-wrap">
+          <table class="ptab">
+            <thead>
+              <tr><th>Provincia</th><th>Escaños</th><th>Peso</th><th style="text-align:right">% Escrutado</th></tr>
+            </thead>
+            <tbody id="provBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Resultados de probabilidad -->
+      <div id="probOut" style="margin-top:12px"></div>
+      <p class="note">Modelo Monte Carlo (1.500 simulaciones por recálculo): proyecta los escaños pendientes de asignar ponderando el peso de cada provincia (Madrid 37, Barcelona 32, Valencia 16…) y la volatilidad restante según su % escrutado. Incluye PNV y Junts en el bloque progresista.</p>
+    </section>
+  </div>
+
+  <!-- BLOQUE 3: SIMULADOR OFICIAL DE PACTOS -->
   <section class="panel">
-    <div class="tabs" role="group" aria-label="Vista del mapa">
-      <button id="mR" aria-pressed="true">Resultados</button>
-      <button id="mP" aria-pressed="false">Participación</button>
-    </div>
-    <div id="mapResultados">
-      <iframe src="https://29n.voto/embed/mapa?eleccion=2026-29n&camara=congreso&idioma=es" title="Mapa del Congreso · Elecciones 29N" loading="lazy" style="width:100%;max-width:760px;height:180px;border:0;display:block"></iframe>
-      <p style="font:12px/1.5 system-ui,sans-serif;margin:6px 0 0;color:#6b6b74">Fuente: Ministerio del Interior · Gráfico: <a href="https://29n.voto/directo">Elecciones 29N</a></p>
-    </div>
-    <div id="mapParticipacion" hidden>
-      <iframe src="https://29n.voto/embed/mapa?eleccion=2026-29n&camara=congreso&modo=participacion&idioma=es" title="Mapa del Congreso · Elecciones 29N" loading="lazy" style="width:100%;max-width:760px;height:180px;border:0;display:block"></iframe>
-      <p style="font:12px/1.5 system-ui,sans-serif;margin:6px 0 0;color:#6b6b74">Fuente: Ministerio del Interior · Gráfico: <a href="https://29n.voto/directo">Elecciones 29N</a></p>
-    </div>
-    <script src="https://29n.voto/embed/ajustar.js" async></script>
+    <h2>Simulador oficial de pactos · Congreso</h2>
+    <div data-elecciones-widget="simulador" data-theme="light"></div>
   </section>
-  <section class="panel">
-    <h2>Probabilidad de mayoría absoluta · demostración</h2>
-    <div id="prob"></div>
-    <p class="note">Estimación propia: simula miles de cierres posibles a partir del voto ya contado, del porcentaje escrutado en cada provincia y de cómo se reparten los escaños (D'Hondt, barrera del 3 %). No es una proyección oficial.</p>
-  </section>
-</div>
-<p class="note" id="foot"></p>
+
+  <!-- Scripts oficiales de widgets -->
+  <script async src="https://generales29n.com/embed/v1/loader.js"></script>
+  <script async src="https://29n.voto/embed/ajustar.js"></script>
 </main>
 
 <script>
-/* ============ CONFIGURACIÓN ============
-   FEED_URL vacío → modo demostración (datos inventados).
-   Para datos reales: pon la URL del fichero de resultados provisionales
-   y adapta parse() para devolver el formato descrito abajo.
-   Formato esperado tras parse():
-   { "Madrid": { e: 0.42,                 // fracción escrutada 0..1
-                 v: { PP: 812345, PSOE: 701234, VOX: 300111, FA: 250000, JUNTS: 0, ... } }, ... }
-   Claves de partido reconocidas: PP, PSOE, VOX, FA (Frente Amplio); el resto cuenta como «Otros»
-   (JUNTS, ERC, BILDU, PNV, BNG, CC, AA, UPN, COMP…). Nombres de provincia como en la lista P. */
-const CFG = { FEED_URL: "", REFRESH: 30000, SIMS: 400,
-  parse: raw => raw };
-const BLOC = { LEFT:["PSOE","FA","ERC","BILDU","BNG","COMP","AA","PNV","JUNTS"], RIGHT:["PP","VOX","CC","UPN"] }; // PNV y JUNTS: sin bloque
-const MAIN = ["PP","PSOE","VOX","FA"];
-const G = [{id:"PP",n:"PP",c:"#1e7fc4"},{id:"PSOE",n:"PSOE",c:"#d6212a"},{id:"VOX",n:"Vox",c:"#5aa832"},{id:"FA",n:"Frente Amplio",c:"#9b3f93"},{id:"OTR",n:"Otros",c:"#7d8590"}];
-const gid = k => MAIN.includes(k) ? k : "OTR";
-
-// [provincia, escaños, código, columna, fila, región (solo para la demo)]
-const P = [
-["A Coruña",8,"COR",2,0,"GAL"],["Lugo",4,"LUG",3,0,"GAL"],["Asturias",7,"AST",4,0],["Cantabria",5,"CAN",5,0],["Vizcaya",8,"BIZ",6,0,"PV"],["Gipuzkoa",6,"GIP",7,0,"PV"],
-["Pontevedra",7,"PON",2,1,"GAL"],["Ourense",4,"OUR",3,1,"GAL"],["León",4,"LEO",4,1],["Palencia",3,"PAL",5,1],["Burgos",4,"BUR",6,1],["Álava",4,"ALA",7,1,"PV"],["Navarra",5,"NAV",8,1,"PV"],["Huesca",3,"HSC",9,1],["Lleida",4,"LLE",10,1,"CAT"],["Girona",6,"GIR",11,1,"CAT"],
-["Zamora",3,"ZAM",3,2],["Valladolid",5,"VLL",4,2],["Segovia",3,"SEG",5,2],["Soria",2,"SOR",6,2],["La Rioja",4,"RIO",7,2],["Zaragoza",7,"ZAR",8,2],["Teruel",3,"TER",9,2],["Tarragona",6,"TAR",10,2,"CAT"],["Barcelona",32,"BCN",11,2,"CAT"],
-["Salamanca",4,"SAL",3,3],["Ávila",3,"AVI",4,3],["Madrid",37,"MAD",5,3],["Guadalajara",3,"GUA",6,3],["Cuenca",3,"CUE",7,3],["Valencia",16,"VAL",8,3],["Castellón",5,"CAS",9,3],
-["Cáceres",4,"CÁC",3,4],["Toledo",6,"TOL",5,4],["Ciudad Real",5,"CRE",6,4],["Albacete",4,"ALB",7,4],["Alicante",12,"ALI",8,4],["Baleares",8,"BAL",10,4],
-["Badajoz",5,"BAD",3,5],["Córdoba",6,"CÓR",5,5,"AND"],["Jaén",5,"JAÉ",6,5,"AND"],["Granada",7,"GRA",7,5,"AND"],["Murcia",10,"MUR",8,5],
-["Huelva",5,"HUE",3,6,"AND"],["Sevilla",12,"SEV",4,6,"AND"],["Málaga",11,"MÁL",6,6,"AND"],["Almería",6,"ALM",7,6,"AND"],
-["Cádiz",9,"CÁD",4,7,"AND"],
-["Las Palmas",8,"LPA",1,8,"CAN"],["Tenerife",7,"TFE",0,8,"CAN"],["Ceuta",1,"CEU",4,8],["Melilla",1,"MEL",5,8]
+const PROVINCIAS = [
+  ["Madrid",37],["Barcelona",32],["Valencia",16],["Alicante",12],["Sevilla",12],
+  ["Málaga",11],["Murcia",10],["Cádiz",9],["A Coruña",8],["Baleares",8],
+  ["Las Palmas",8],["Vizcaya",8],["Asturias",7],["Granada",7],["Pontevedra",7],
+  ["Tenerife",7],["Zaragoza",7],["Almería",6],["Córdoba",6],["Gipuzkoa",6],
+  ["Girona",6],["Tarragona",6],["Toledo",6],["Badajoz",5],["Cantabria",5],
+  ["Castellón",5],["Ciudad Real",5],["Huelva",5],["Jaén",5],["Navarra",5],
+  ["Valladolid",5],["Álava",4],["Albacete",4],["Burgos",4],["Cáceres",4],
+  ["La Rioja",4],["León",4],["Lleida",4],["Lugo",4],["Ourense",4],
+  ["Salamanca",4],["Ávila",3],["Cuenca",3],["Guadalajara",3],["Huesca",3],
+  ["Palencia",3],["Segovia",3],["Teruel",3],["Zamora",3],["Soria",2],
+  ["Ceuta",1],["Melilla",1]
 ];
 
-/* ============ CÁLCULO ============ */
-function dhondt(v,n){
-  const tot=Object.values(v).reduce((a,b)=>a+b,0), out={}; if(!tot) return out;
-  const q=[];
-  for(const k in v){ if(v[k]/tot>=.03) for(let i=1;i<=n;i++) q.push([v[k]/i,k]); }
-  q.sort((a,b)=>b[0]-a[0]);
-  q.slice(0,n).forEach(([,k])=>out[k]=(out[k]||0)+1);
-  return out;
+let provMode = false;
+const provPct = Object.fromEntries(PROVINCIAS.map(p => [p[0], 0]));
+
+const provBody = document.getElementById("provBody");
+provBody.innerHTML = PROVINCIAS.map(([name, seats]) => {
+  const peso = ((seats / 350) * 100).toFixed(1).replace(".", ",") + " %";
+  return `<tr>
+    <td><b>${name}</b></td>
+    <td><span class="pill">${seats} esc.</span></td>
+    <td style="color:var(--mut)">${peso}</td>
+    <td style="text-align:right"><input type="number" data-prov="${name}" min="0" max="100" step="1" value="0"> %</td>
+  </tr>`;
+}).join("");
+
+provBody.addEventListener("input", e => {
+  const p = e.target.dataset.prov;
+  if (!p) return;
+  let v = parseFloat(e.target.value);
+  if (isNaN(v)) v = 0;
+  v = Math.max(0, Math.min(100, v));
+  provPct[p] = v;
+  runCalc();
+});
+
+document.getElementById("mR").onclick = () => {
+  document.getElementById("mR").setAttribute("aria-pressed", "true");
+  document.getElementById("mP").setAttribute("aria-pressed", "false");
+  document.getElementById("mapResultados").hidden = false;
+  document.getElementById("mapParticipacion").hidden = true;
+};
+document.getElementById("mP").onclick = () => {
+  document.getElementById("mR").setAttribute("aria-pressed", "false");
+  document.getElementById("mP").setAttribute("aria-pressed", "true");
+  document.getElementById("mapResultados").hidden = true;
+  document.getElementById("mapParticipacion").hidden = false;
+};
+
+document.getElementById("modeGlobal").onclick = () => {
+  provMode = false;
+  document.getElementById("modeGlobal").setAttribute("aria-pressed", "true");
+  document.getElementById("modeProv").setAttribute("aria-pressed", "false");
+  document.getElementById("boxGlobal").hidden = false;
+  document.getElementById("boxProv").hidden = true;
+  runCalc();
+};
+document.getElementById("modeProv").onclick = () => {
+  provMode = true;
+  document.getElementById("modeGlobal").setAttribute("aria-pressed", "false");
+  document.getElementById("modeProv").setAttribute("aria-pressed", "true");
+  document.getElementById("boxGlobal").hidden = true;
+  document.getElementById("boxProv").hidden = false;
+  runCalc();
+};
+
+const rngGlobal = document.getElementById("rngGlobal");
+const numGlobal = document.getElementById("numGlobal");
+rngGlobal.oninput = () => { numGlobal.value = rngGlobal.value; runCalc(); };
+numGlobal.oninput = () => {
+  let v = Math.max(0, Math.min(100, parseFloat(numGlobal.value) || 0));
+  rngGlobal.value = v;
+  runCalc();
+};
+
+document.getElementById("btnApplyAll").onclick = () => {
+  const val = Math.max(0, Math.min(100, parseFloat(numGlobal.value) || 0));
+  PROVINCIAS.forEach(([name]) => { provPct[name] = val; });
+  provBody.querySelectorAll("input").forEach(inp => inp.value = val);
+  runCalc();
+};
+
+document.getElementById("btnReset").onclick = () => {
+  ["inPP","inPSOE","inVOX","inFA","inIZQ","inDER"].forEach(id => document.getElementById(id).value = 0);
+  rngGlobal.value = 0; numGlobal.value = 0;
+  PROVINCIAS.forEach(([name]) => { provPct[name] = 0; });
+  provBody.querySelectorAll("input").forEach(inp => inp.value = 0);
+  runCalc();
+};
+
+["inPP","inPSOE","inVOX","inFA","inIZQ","inDER"].forEach(id => {
+  document.getElementById(id).addEventListener("input", runCalc);
+});
+
+function randn() {
+  let u = 0;
+  while (!u) u = Math.random();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * Math.random());
 }
-function seats(data){ const s={};
-  P.forEach(p=>{const d=data[p[0]]; if(!d||!(d.e>0)) return;
-    const r=dhondt(d.v,p[1]); for(const k in r) s[k]=(s[k]||0)+r[k];});
-  return s; }
-const sum = o => Object.values(o).reduce((a,b)=>a+b,0);
-function avgE(data){ let a=0,b=0; P.forEach(p=>{a+=(data[p[0]]?.e||0)*p[1]; b+=p[1];}); return a/b; }
-function natShares(data){ const t={}; let T=0;
-  P.forEach(p=>{const d=data[p[0]]; if(!d) return; for(const k in d.v){t[k]=(t[k]||0)+d.v[k]; T+=d.v[k];}});
-  for(const k in t) t[k]/=T||1; return t; }
-const rnd=()=>{let u=0;while(!u)u=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(6.283185*Math.random());};
-const bloc = (s,list) => list.reduce((a,k)=>a+(s[k]||0),0);
 
-function probability(data){
-  const eb=avgE(data); if(eb<.01) return null;
-  const nat=natShares(data), N=CFG.SIMS; let L=0,R=0,mL=0,mR=0;
-  for(let i=0;i<N;i++){
-    const g={}, s={}, sn=.07*Math.sqrt(1-eb);
-    P.forEach(p=>{
-      const d=data[p[0]]; let v=d?d.v:{}; const e=d?d.e:0;
-      if(e<.05){ v={}; for(const k in nat) v[k]=nat[k]*1000; }   // provincia sin datos: usa el reparto nacional
-      const o={};
-      for(const k in v){ if(g[k]===undefined) g[k]=rnd()*sn; o[k]=v[k]*Math.exp(g[k]+rnd()*.15*Math.sqrt(1-e)); }
-      const r=dhondt(o,p[1]); for(const k in r) s[k]=(s[k]||0)+r[k];
-    });
-    const l=bloc(s,BLOC.LEFT), r=bloc(s,BLOC.RIGHT);
-    if(l>=176)L++; if(r>=176)R++; mL+=l; mR+=r;
-  }
-  return {L:L/N,R:R/N,N:1-(L+R)/N,mL:mL/N,mR:mR/N};
-}
+function runCalc() {
+  const pp = Math.max(0, parseInt(document.getElementById("inPP").value) || 0);
+  const psoe = Math.max(0, parseInt(document.getElementById("inPSOE").value) || 0);
+  const vox = Math.max(0, parseInt(document.getElementById("inVOX").value) || 0);
+  const fa = Math.max(0, parseInt(document.getElementById("inFA").value) || 0);
+  const izqOtr = Math.max(0, parseInt(document.getElementById("inIZQ").value) || 0);
+  const derOtr = Math.max(0, parseInt(document.getElementById("inDER").value) || 0);
 
-/* ============ DATOS: demo y directo ============ */
-let prog=0;
-function demoData(){
-  prog=Math.min(1.25,prog+.035); const d={};
-  const base={PP:32,PSOE:27,VOX:15,FA:8};
-  P.forEach((p,i)=>{
-    const h=((i*37)%100)/100, e=Math.max(0,Math.min(1,prog-h*.35));
-    const sh={...base};
-    if(p[5]==="CAT"){sh.PP=12;sh.PSOE=25;sh.VOX=8;sh.JUNTS=15;sh.ERC=12;}
-    if(p[5]==="PV"){sh.PP=12;sh.PSOE=20;sh.VOX=6;sh.PNV=24;sh.BILDU=20;}
-    if(p[5]==="GAL"){sh.BNG=13;}
-    if(p[5]==="CAN"){sh.CC=14;}
-    if(p[5]==="AND"){sh.AA=4;}
-    const v={}; let k=0;
-    for(const id in sh){ k++; v[id]=Math.round(sh[id]*(1+(((i*131+k*71)%17)/17-.5)*.35)*p[1]*750*e); }
-    d[p[0]]={e,v};
-  });
-  return d;
-}
-async function load(){
-  if(!CFG.FEED_URL) return {data:demoData(),demo:true};
-  const r=await fetch(CFG.FEED_URL,{cache:"no-store"});
-  if(!r.ok) throw new Error("HTTP "+r.status);
-  return {data:CFG.parse(await r.json()),demo:false};
-}
+  const curR = pp + vox + derOtr;
+  const curL = psoe + fa + izqOtr;
+  const totAssigned = curR + curL;
 
-/* ============ PINTADO ============ */
-const f=new Intl.NumberFormat("es-ES"), pc=x=>(x*100).toLocaleString("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1})+" %";
-let view="P", last=null;
+  const sumEl = document.getElementById("sumSeats");
+  sumEl.textContent = totAssigned;
+  sumEl.className = totAssigned > 350 ? "sum-warn" : "";
 
-function paint({data,demo}){
-  last={data,demo};
-  const s=seats(data), vt={}; let T=0;
-  P.forEach(p=>{const d=data[p[0]]; if(!d) return; for(const k in d.v){const g=gid(k); vt[g]=(vt[g]||0)+d.v[k]; T+=d.v[k];}});
-  const gs={}; for(const k in s){const g=gid(k); gs[g]=(gs[g]||0)+s[k];}
-  const e=avgE(data);
-
-  document.getElementById("status").innerHTML=
-    "Escrutado: <b>"+pc(e)+"</b> · Actualizado "+new Date().toLocaleTimeString("es-ES")+
-    (demo?'<span class="demo">Datos de demostración, no son resultados reales</span>':'<span class="live">En directo</span>');
-
-  document.getElementById("parties").innerHTML=G.map(g=>
-    '<div class="p" style="--c:'+g.c+'"><b>'+g.n+'</b><div class="s">'+(gs[g.id]||0)+
-    '</div><div class="v">'+(T?pc((vt[g.id]||0)/T):"– %")+'</div><div class="pj">escaños · % de voto</div></div>').join("");
-
-  const sv=document.getElementById("seatView"), tot=sum(gs);
-  if(view==="P"){
-    const order=["FA","PSOE","OTR","PP","VOX"], col=Object.fromEntries(G.map(g=>[g.id,g.c]));
-    sv.innerHTML='<div class="bar">'+order.map(id=>'<i style="width:'+((gs[id]||0)/350*100)+'%;background:'+col[id]+'"></i>').join("")+
-      '<span class="mark"></span></div><div class="marklbl">Mayoría absoluta: 176 de 350 · escaños asignados hasta ahora: '+tot+'</div>';
+  let weightedE = 0;
+  let remainingVariance = 0;
+  if (!provMode) {
+    weightedE = (Math.max(0, Math.min(100, parseFloat(numGlobal.value) || 0))) / 100;
+    remainingVariance = 1 - weightedE;
   } else {
-    const l=bloc(s,BLOC.LEFT), r=bloc(s,BLOC.RIGHT), n=tot-l-r;
-    sv.innerHTML='<div class="blocs"><div style="background:#b3262f"><b>Bloque de izquierdas</b><div class="n">'+l+'</div>PSOE, Frente Amplio, ERC, Bildu, BNG, Compromís, Adelante Andalucía</div>'+
-      '<div style="background:#1b6aa5"><b>Bloque de derechas</b><div class="n">'+r+'</div>PP, Vox, Coalición Canaria, UPN</div></div>'+
-      '<div class="bar"><i style="width:'+(l/350*100)+'%;background:#b3262f"></i><i style="width:'+(n/350*100)+'%;background:#b9bec6"></i><i style="margin-left:auto;width:'+(r/350*100)+'%;background:#1b6aa5"></i><span class="mark"></span></div>'+
-      '<div class="marklbl">Sin bloque (PNV, Junts y otros): '+n+' · mayoría absoluta: 176</div>';
+    let acc = 0, varAcc = 0;
+    PROVINCIAS.forEach(([name, seats]) => {
+      const e = (provPct[name] || 0) / 100;
+      acc += e * seats;
+      varAcc += (1 - e) * (seats / 350);
+    });
+    weightedE = acc / 350;
+    remainingVariance = varAcc;
   }
 
+  document.getElementById("weightedPct").textContent =
+    (weightedE * 100).toLocaleString("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " %";
 
-
-  // probabilidad
-  const pr=probability(data), el=document.getElementById("prob");
-  if(!pr){ el.innerHTML='<p class="note">Esperando los primeros datos del escrutinio.</p>'; }
-  else {
-    const row=(t,x,c)=>'<div class="pr"><div class="row"><span>'+t+'</span><span>'+Math.round(x*100)+' %</span></div><div class="tr"><i style="width:'+x*100+'%;background:'+c+'"></i></div></div>';
-    el.innerHTML=row("Mayoría absoluta de la izquierda",pr.L,"#b3262f")+row("Mayoría absoluta de la derecha",pr.R,"#1b6aa5")+row("Ningún bloque llega a 176",pr.N,"#8a919c")+
-      '<div class="sub">Escaños proyectados al cierre: izquierda '+Math.round(pr.mL)+' · derecha '+Math.round(pr.mR)+'</div>';
+  const out = document.getElementById("probOut");
+  if (totAssigned > 350) {
+    out.innerHTML = `<p class="sum-warn" style="font-size:13px">Has introducido ${totAssigned} escaños y el Congreso tiene un máximo de 350.</p>`;
+    return;
   }
-  document.getElementById("foot").textContent=demo?
-    "Estás viendo datos simulados. Para usar resultados reales, configura FEED_URL y parse() al principio del script.":
-    "Fuente: resultados provisionales oficiales. Los datos de mesas con incidencias se resuelven en el escrutinio definitivo.";
+  if (totAssigned === 0 && weightedE === 0) {
+    out.innerHTML = `<p class="note" style="margin:0">Introduce los escaños que vayan saliendo en el hemiciclo y el % escrutado para calcular la proyección en directo.</p>`;
+    return;
+  }
+
+  const SIMS = 1500;
+  let winL = 0, winR = 0, tie = 0;
+  let sumFinalL = 0, sumFinalR = 0;
+
+  const shareR = totAssigned > 0 ? curR / totAssigned : 0.5;
+  const remSeats = Math.max(0, 350 - totAssigned);
+  const sigmaShare = 0.085 * Math.sqrt(Math.max(0.005, remainingVariance));
+
+  for (let i = 0; i < SIMS; i++) {
+    const swing = randn() * sigmaShare;
+    const simShareR = Math.max(0.05, Math.min(0.95, shareR + swing));
+
+    const expectedRemR = remSeats * simShareR;
+    const dhondtNoise = randn() * Math.sqrt(remSeats * simShareR * (1 - simShareR) * 0.65);
+    const addR = Math.max(0, Math.min(remSeats, Math.round(expectedRemR + dhondtNoise)));
+    const addL = remSeats - addR;
+
+    const finalR = curR + addR;
+    const finalL = curL + addL;
+
+    sumFinalR += finalR;
+    sumFinalL += finalL;
+
+    if (finalR >= 176) winR++;
+    else if (finalL >= 176) winL++;
+    else tie++;
+  }
+
+  const pL = (winL / SIMS) * 100;
+  const pR = (winR / SIMS) * 100;
+  const pT = (tie / SIMS) * 100;
+  const projL = Math.round(sumFinalL / SIMS);
+  const projR = 350 - projL;
+
+  const row = (label, pct, color) => `
+    <div class="pr">
+      <div class="row"><span>${label}</span><span>${pct.toFixed(1).replace(".", ",")} %</span></div>
+      <div class="tr"><i style="width:${pct}%;background:${color}"></i></div>
+    </div>`;
+
+  out.innerHTML =
+    row("Mayoría absoluta Izquierda (PSOE + FA + PNV/Junts…)", pL, "#b3262f") +
+    row("Mayoría absoluta Derecha (PP + Vox + CC/UPN)", pR, "#1b6aa5") +
+    (pT > 0.1 ? row("Empate exacto (175 - 175)", pT, "#8a919c") : "") +
+    `<div class="proj-box">
+      <div class="proj-row"><span>Bloque actual en hemiciclo:</span><b>Izq. ${curL} · Der. ${curR}</b></div>
+      <div class="proj-row"><span>Proyección media al 100 %:</span><b>Izq. ${projL} · Der. ${projR}</b></div>
+    </div>`;
 }
 
-document.getElementById("tP").onclick=()=>{view="P";tabs();last&&paint(last)};
-document.getElementById("tB").onclick=()=>{view="B";tabs();last&&paint(last)};
-function tabs(){document.getElementById("tP").setAttribute("aria-pressed",view==="P");document.getElementById("tB").setAttribute("aria-pressed",view==="B");}
-document.getElementById("mR").onclick=()=>{
-  document.getElementById("mR").setAttribute("aria-pressed","true");
-  document.getElementById("mP").setAttribute("aria-pressed","false");
-  document.getElementById("mapResultados").hidden=false;
-  document.getElementById("mapParticipacion").hidden=true;
-};
-document.getElementById("mP").onclick=()=>{
-  document.getElementById("mR").setAttribute("aria-pressed","false");
-  document.getElementById("mP").setAttribute("aria-pressed","true");
-  document.getElementById("mapResultados").hidden=true;
-  document.getElementById("mapParticipacion").hidden=false;
-};
-
-async function tick(){
-  try{ paint(await load()); }
-  catch(err){ document.getElementById("status").innerHTML='No se pudieron cargar los datos ('+err.message+'). Reintentando…'; }
-}
-tick(); setInterval(tick, CFG.FEED_URL?CFG.REFRESH:1500);
+runCalc();
 </script>
 </body>
 </html>
